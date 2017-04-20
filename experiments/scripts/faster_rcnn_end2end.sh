@@ -38,6 +38,12 @@ case $DATASET in
     PT_DIR="coco"
     ITERS=490000
     ;;
+  kaggle)
+    TRAIN_IMDB="kaggle_train"
+    TEST_IMDB="kaggle_test"
+    PT_DIR="kaggle"
+    ITERS=10
+    ;;
   *)
     echo "No dataset given"
     exit

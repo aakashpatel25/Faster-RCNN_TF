@@ -69,7 +69,6 @@ class SolverWrapper(object):
         filename = (cfg.TRAIN.SNAPSHOT_PREFIX + infix +
                     '_iter_{:d}'.format(iter+1) + '.ckpt')
         filename = os.path.join(self.output_dir, filename)
-
         self.saver.save(sess, filename)
         print 'Wrote snapshot to: {:s}'.format(filename)
 
@@ -257,7 +256,7 @@ def filter_roidb(roidb):
 def train_net(network, imdb, roidb, output_dir, pretrained_model=None, max_iters=40000):
     """Train a Fast R-CNN network."""
     roidb = filter_roidb(roidb)
-    saver = tf.train.Saver(max_to_keep=100)
+    saver = tf.train.Saver(max_to_keep=100, write_version=tf.train.SaverDef.V1)
     with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
         sw = SolverWrapper(sess, saver, network, imdb, roidb, output_dir, pretrained_model=pretrained_model)
         print 'Solving...'
